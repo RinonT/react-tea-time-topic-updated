@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Heading from './Heading';
 import ShowNextTopic from './NextTopics';
+import ShowPastTopics from './PastTopics';
+import AddTopics from './AddTopic';
 
 export default function App() {
     const [topics, setTopics] = useState([]);
@@ -17,9 +19,11 @@ export default function App() {
 
     return (
         <>
+            <AddTopics topics={topics} setTopics={setTopics}/>
             <Heading heading="Next Topics" />
-            <ShowNextTopic topics={topics} />
+            <ShowNextTopic topics={topics} setTopics={setTopics} />
             <Heading heading="Past Topics" />
+            <ShowPastTopics topics={topics} />
         </>
     )
 }

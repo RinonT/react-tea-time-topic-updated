@@ -1,4 +1,4 @@
-export const archiveSVG = `
+export const ArchiveSVG = `
 <svg
 class="w-6 h-6"
 fill="none"

@@ -29787,6 +29787,26 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function Heading(props) {
   return /*#__PURE__*/_react.default.createElement("header", null, /*#__PURE__*/_react.default.createElement("h4", null, props.heading));
 }
+},{"react":"node_modules/react/index.js"}],"components/Svgs/Archive.js":[function(require,module,exports) {
+"use strict";
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/*#__PURE__*/
+_react.default.createElement("svg", {
+  class: "w-6 h-6",
+  fill: "none",
+  stroke: "currentColor",
+  viewBox: "0 0 24 24",
+  xmlns: "http://www.w3.org/2000/svg"
+}, /*#__PURE__*/_react.default.createElement("path", {
+  "stroke-linecap": "round",
+  "stroke-linejoin": "round",
+  "stroke-width": "2",
+  d: "M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"
+}));
 },{"react":"node_modules/react/index.js"}],"components/NextTopicsComponent.js":[function(require,module,exports) {
 "use strict";
 
@@ -29797,34 +29817,75 @@ exports.default = TopicsComponent;
 
 var _react = _interopRequireDefault(require("react"));
 
+var _Archive = _interopRequireDefault(require("./Svgs/Archive"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function TopicsComponent({
   id,
   title,
   upvotes,
-  downvotes
+  downvotes,
+  upvoteTopic,
+  downvoteTopic,
+  archiveTopic
 }) {
   return /*#__PURE__*/_react.default.createElement("article", null, /*#__PURE__*/_react.default.createElement("button", {
     className: "archive",
-    "data-id": id
-  }, "archiveSVG"), /*#__PURE__*/_react.default.createElement("h5", {
+    onClick: archiveTopic
+  }, /*#__PURE__*/_react.default.createElement("svg", {
+    id: id,
+    className: "w-6 h-6",
+    fill: "none",
+    stroke: "currentColor",
+    viewBox: "0 0 24 24",
+    xmlns: "http://www.w3.org/2000/svg"
+  }, /*#__PURE__*/_react.default.createElement("path", {
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    strokeWidth: "2",
+    d: "M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"
+  }))), /*#__PURE__*/_react.default.createElement("h5", {
     className: "topic-text"
   }, title), /*#__PURE__*/_react.default.createElement("div", {
     className: "votes"
   }, /*#__PURE__*/_react.default.createElement("button", {
     className: "upvote",
-    "data-id": id
-  }, "upvoteSVG"), /*#__PURE__*/_react.default.createElement("span", {
+    id: id,
+    onClick: upvoteTopic
+  }, /*#__PURE__*/_react.default.createElement("svg", {
+    className: "w-6 h-6",
+    fill: "none",
+    stroke: "currentColor",
+    viewBox: "0 0 24 24",
+    xmlns: "http://www.w3.org/2000/svg"
+  }, /*#__PURE__*/_react.default.createElement("path", {
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    strokeWidth: "2",
+    d: "M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"
+  }))), /*#__PURE__*/_react.default.createElement("span", {
     className: "upvote-number"
   }, upvotes), /*#__PURE__*/_react.default.createElement("button", {
     className: "downvote",
-    "data-id": id
-  }, "downvoteSVG"), /*#__PURE__*/_react.default.createElement("span", {
+    id: id,
+    onClick: downvoteTopic
+  }, /*#__PURE__*/_react.default.createElement("svg", {
+    className: "w-6 h-6",
+    fill: "none",
+    stroke: "currentColor",
+    viewBox: "0 0 24 24",
+    xmlns: "http://www.w3.org/2000/svg"
+  }, /*#__PURE__*/_react.default.createElement("path", {
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    strokeWidth: "2",
+    d: "M10 14H5.236a2 2 0 01-1.789-2.894l3.5-7A2 2 0 018.736 3h4.018a2 2 0 01.485.06l3.76.94m-7 10v5a2 2 0 002 2h.096c.5 0 .905-.405.905-.904 0-.715.211-1.413.608-2.008L17 13V4m-7 10h2m5-10h2a2 2 0 012 2v6a2 2 0 01-2 2h-2.5"
+  }))), /*#__PURE__*/_react.default.createElement("span", {
     className: "downvote-number"
   }, downvotes)));
 }
-},{"react":"node_modules/react/index.js"}],"components/NextTopics.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./Svgs/Archive":"components/Svgs/Archive.js"}],"components/NextTopics.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -29845,27 +29906,211 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 function showNextTopics({
-  topics
+  topics,
+  setTopics
 }) {
   const [nextTopics, setNextTopics] = (0, _react.useState)([]);
+  const [upvoteTopic, setUpvoteTopic] = (0, _react.useState)(0);
+  const [downvoteTopic, setDownvoteTopic] = (0, _react.useState)(0);
+  const [archiveTopic, setArchiveTopic] = (0, _react.useState)([]);
   (0, _react.useEffect)(() => {
     const nextTopicsData = topics.filter(topic => !topic.discussedOn);
+    nextTopicsData.map(topic => topic.totalVotes = topic.upvotes - topic.downvotes);
     setNextTopics(nextTopicsData);
-    console.log(nextTopicsData);
-  }, [topics]); // sort them the way we want
+  }, [topics]);
 
-  nextTopics.sort((topicA, topicB) => {
-    const ratioA = topicA.upvotes - topicA.downvotes;
-    const ratioB = topicB.upvotes - topicB.downvotes;
-    return ratioB - ratioA;
-  });
+  const upvoteOneTopic = e => {
+    const id = e.target.id;
+    const topicToUpvote = topics.find(topic => topic.id == id);
+    setUpvoteTopic(topicToUpvote.upvotes++);
+  };
+
+  const downvoteOneTopic = e => {
+    const id = e.target.id;
+    const topicToDownvote = topics.find(topic => topic.id == id);
+    setDownvoteTopic(topicToDownvote.downvotes++);
+  };
+
+  const archiveOneTopic = e => {
+    const id = e.target.id;
+    const topicToArchive = topics.find(topic => topic.id === id || topic.id == id);
+    topicToArchive.discussedOn = Date.now(); // add a timestamp to the attribute
+
+    topics.push(topicToArchive);
+    setTopics([...topics]);
+    console.log(topics);
+  }; // Sort the topics by its totalVotes
+
+
+  nextTopics.sort((topicA, topicB) => topicB.totalVotes - topicA.totalVotes);
+  console.log(nextTopics);
   return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, nextTopics.map(topic => {
     return /*#__PURE__*/_react.default.createElement(_NextTopicsComponent.default, _extends({
       key: topic.id
-    }, topic));
+    }, topic, {
+      setTopics: setTopics,
+      upvoteTopic: upvoteOneTopic,
+      downvoteTopic: downvoteOneTopic,
+      archiveTopic: archiveOneTopic
+    }));
   }));
 }
-},{"react":"node_modules/react/index.js","./NextTopicsComponent":"components/NextTopicsComponent.js"}],"components/App.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./NextTopicsComponent":"components/NextTopicsComponent.js"}],"components/PastTopicsComponent.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = PastTopicsComponent;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function PastTopicsComponent({
+  id,
+  title,
+  discussedOn,
+  topicToDelete
+}) {
+  const discussedOnDate = new Date(Number(discussedOn));
+  return /*#__PURE__*/_react.default.createElement("article", null, /*#__PURE__*/_react.default.createElement("button", {
+    className: "delete",
+    id: id,
+    onClick: topicToDelete
+  }, /*#__PURE__*/_react.default.createElement("svg", {
+    id: id,
+    className: "w-6 h-6",
+    fill: "none",
+    stroke: "currentColor",
+    viewBox: "0 0 24 24",
+    xmlns: "http://www.w3.org/2000/svg"
+  }, /*#__PURE__*/_react.default.createElement("path", {
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    strokeWidth: "2",
+    d: "M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+  }))), /*#__PURE__*/_react.default.createElement("h5", {
+    className: "topic-text"
+  }, " ", title), /*#__PURE__*/_react.default.createElement("p", null, "Discussed on ", discussedOnDate.toLocaleDateString()));
+}
+},{"react":"node_modules/react/index.js"}],"components/PastTopics.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = ShowPastTopics;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _PastTopicsComponent = _interopRequireDefault(require("./PastTopicsComponent"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function ShowPastTopics({
+  topics
+}) {
+  const [prevTopics, setPrevTopics] = (0, _react.useState)([]); // const [deleteTopic, setTopicToDelete] = useState([]);
+
+  (0, _react.useEffect)(() => {
+    const prevTopicsData = topics.filter(topic => topic.discussedOn);
+    setPrevTopics(prevTopicsData);
+  }, [topics]);
+
+  const deleteOneTopic = e => {
+    const id = e.target.id;
+    const topicsToKeep = prevTopics.filter(topic => topic.id !== id);
+    setPrevTopics(topicsToKeep);
+  };
+
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, prevTopics.map(topic => {
+    return /*#__PURE__*/_react.default.createElement(_PastTopicsComponent.default, _extends({
+      key: topic.id
+    }, topic, {
+      topicToDelete: deleteOneTopic
+    }));
+  }));
+}
+},{"react":"node_modules/react/index.js","./PastTopicsComponent":"components/PastTopicsComponent.js"}],"components/Form.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = Form;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function Form({
+  handleSubmit,
+  topics
+}) {
+  return /*#__PURE__*/_react.default.createElement("section", null, /*#__PURE__*/_react.default.createElement("header", null, /*#__PURE__*/_react.default.createElement("h4", null, "Add a topic")), /*#__PURE__*/_react.default.createElement("article", null, /*#__PURE__*/_react.default.createElement("form", {
+    className: "add-topic",
+    onSubmit: handleSubmit
+  }, /*#__PURE__*/_react.default.createElement("input", {
+    required: true,
+    type: "text",
+    name: "topic",
+    placeholder: "Type your topic idea here"
+  }), /*#__PURE__*/_react.default.createElement("button", {
+    type: "submit"
+  }, "Submit"))));
+}
+},{"react":"node_modules/react/index.js"}],"components/AddTopic.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = AddTopics;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _Form = _interopRequireDefault(require("./Form"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function AddTopics({
+  topics,
+  setTopics
+}) {
+  const handleSubmit = e => {
+    e.preventDefault();
+    let newTopic = createNewTopic(e.currentTarget.topic.value);
+    topics.push(newTopic);
+    setTopics([...topics]);
+  };
+
+  const createNewTopic = title => {
+    return {
+      upvotes: 0,
+      downvotes: 0,
+      disussedOn: '',
+      title: title,
+      id: Date.now()
+    };
+  };
+
+  return /*#__PURE__*/_react.default.createElement(_Form.default, {
+    handleSubmit: handleSubmit,
+    topics: topics
+  });
+}
+},{"react":"node_modules/react/index.js","./Form":"components/Form.js"}],"components/App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -29878,6 +30123,10 @@ var _react = _interopRequireWildcard(require("react"));
 var _Heading = _interopRequireDefault(require("./Heading"));
 
 var _NextTopics = _interopRequireDefault(require("./NextTopics"));
+
+var _PastTopics = _interopRequireDefault(require("./PastTopics"));
+
+var _AddTopic = _interopRequireDefault(require("./AddTopic"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -29898,15 +30147,21 @@ function App() {
   (0, _react.useEffect)(() => {
     fetchTopics();
   }, []);
-  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_Heading.default, {
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_AddTopic.default, {
+    topics: topics,
+    setTopics: setTopics
+  }), /*#__PURE__*/_react.default.createElement(_Heading.default, {
     heading: "Next Topics"
   }), /*#__PURE__*/_react.default.createElement(_NextTopics.default, {
-    topics: topics
+    topics: topics,
+    setTopics: setTopics
   }), /*#__PURE__*/_react.default.createElement(_Heading.default, {
     heading: "Past Topics"
+  }), /*#__PURE__*/_react.default.createElement(_PastTopics.default, {
+    topics: topics
   }));
 }
-},{"react":"node_modules/react/index.js","./Heading":"components/Heading.js","./NextTopics":"components/NextTopics.js"}],"index.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./Heading":"components/Heading.js","./NextTopics":"components/NextTopics.js","./PastTopics":"components/PastTopics.js","./AddTopic":"components/AddTopic.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -29946,7 +30201,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59594" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65355" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
