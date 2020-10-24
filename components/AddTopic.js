@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Form from './Form' 
 
 export default function AddTopics({topics, setTopics}) { 
@@ -7,6 +7,7 @@ export default function AddTopics({topics, setTopics}) {
         let newTopic = createNewTopic(e.currentTarget.topic.value);
         topics.push(newTopic);
         setTopics([...topics]) 
+        e.currentTarget.topic.value="";
     };
 
     const createNewTopic = title => {

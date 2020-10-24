@@ -29787,26 +29787,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function Heading(props) {
   return /*#__PURE__*/_react.default.createElement("header", null, /*#__PURE__*/_react.default.createElement("h4", null, props.heading));
 }
-},{"react":"node_modules/react/index.js"}],"components/Svgs/Archive.js":[function(require,module,exports) {
-"use strict";
-
-var _react = _interopRequireDefault(require("react"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/*#__PURE__*/
-_react.default.createElement("svg", {
-  class: "w-6 h-6",
-  fill: "none",
-  stroke: "currentColor",
-  viewBox: "0 0 24 24",
-  xmlns: "http://www.w3.org/2000/svg"
-}, /*#__PURE__*/_react.default.createElement("path", {
-  "stroke-linecap": "round",
-  "stroke-linejoin": "round",
-  "stroke-width": "2",
-  d: "M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"
-}));
 },{"react":"node_modules/react/index.js"}],"components/NextTopicsComponent.js":[function(require,module,exports) {
 "use strict";
 
@@ -29816,8 +29796,6 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = TopicsComponent;
 
 var _react = _interopRequireDefault(require("react"));
-
-var _Archive = _interopRequireDefault(require("./Svgs/Archive"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -29832,9 +29810,9 @@ function TopicsComponent({
 }) {
   return /*#__PURE__*/_react.default.createElement("article", null, /*#__PURE__*/_react.default.createElement("button", {
     className: "archive",
+    id: id,
     onClick: archiveTopic
   }, /*#__PURE__*/_react.default.createElement("svg", {
-    id: id,
     className: "w-6 h-6",
     fill: "none",
     stroke: "currentColor",
@@ -29850,10 +29828,10 @@ function TopicsComponent({
   }, title), /*#__PURE__*/_react.default.createElement("div", {
     className: "votes"
   }, /*#__PURE__*/_react.default.createElement("button", {
-    className: "upvote",
-    id: id,
-    onClick: upvoteTopic
+    className: "upvote"
   }, /*#__PURE__*/_react.default.createElement("svg", {
+    id: id,
+    onClick: upvoteTopic,
     className: "w-6 h-6",
     fill: "none",
     stroke: "currentColor",
@@ -29867,10 +29845,10 @@ function TopicsComponent({
   }))), /*#__PURE__*/_react.default.createElement("span", {
     className: "upvote-number"
   }, upvotes), /*#__PURE__*/_react.default.createElement("button", {
-    className: "downvote",
-    id: id,
-    onClick: downvoteTopic
+    className: "downvote"
   }, /*#__PURE__*/_react.default.createElement("svg", {
+    id: id,
+    onClick: downvoteTopic,
     className: "w-6 h-6",
     fill: "none",
     stroke: "currentColor",
@@ -29885,7 +29863,7 @@ function TopicsComponent({
     className: "downvote-number"
   }, downvotes)));
 }
-},{"react":"node_modules/react/index.js","./Svgs/Archive":"components/Svgs/Archive.js"}],"components/NextTopics.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js"}],"components/NextTopics.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -29906,10 +29884,11 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 function showNextTopics({
-  topics,
-  setTopics
+  setTopics,
+  topics
 }) {
   const [nextTopics, setNextTopics] = (0, _react.useState)([]);
+  const [sortedTopics, setSortedTopics] = (0, _react.useState)([]);
   const [upvoteTopic, setUpvoteTopic] = (0, _react.useState)(0);
   const [downvoteTopic, setDownvoteTopic] = (0, _react.useState)(0);
   const [archiveTopic, setArchiveTopic] = (0, _react.useState)([]);
@@ -29920,31 +29899,31 @@ function showNextTopics({
   }, [topics]);
 
   const upvoteOneTopic = e => {
-    const id = e.target.id;
+    const id = e.currentTarget.id;
     const topicToUpvote = topics.find(topic => topic.id == id);
     setUpvoteTopic(topicToUpvote.upvotes++);
   };
 
   const downvoteOneTopic = e => {
-    const id = e.target.id;
+    const id = e.currentTarget.id;
     const topicToDownvote = topics.find(topic => topic.id == id);
     setDownvoteTopic(topicToDownvote.downvotes++);
   };
 
   const archiveOneTopic = e => {
-    const id = e.target.id;
+    const id = e.currentTarget.id;
     const topicToArchive = topics.find(topic => topic.id === id || topic.id == id);
     topicToArchive.discussedOn = Date.now(); // add a timestamp to the attribute
 
     topics.push(topicToArchive);
     setTopics([...topics]);
-    console.log(topics);
   }; // Sort the topics by its totalVotes
 
 
-  nextTopics.sort((topicA, topicB) => topicB.totalVotes - topicA.totalVotes);
-  console.log(nextTopics);
-  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, nextTopics.map(topic => {
+  (0, _react.useEffect)(() => {
+    setSortedTopics(nextTopics.sort((topicA, topicB) => topicB.totalVotes - topicA.totalVotes));
+  }, [nextTopics]);
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, sortedTopics.map(topic => {
     return /*#__PURE__*/_react.default.createElement(_NextTopicsComponent.default, _extends({
       key: topic.id
     }, topic, {
@@ -30017,8 +29996,7 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
 function ShowPastTopics({
   topics
 }) {
-  const [prevTopics, setPrevTopics] = (0, _react.useState)([]); // const [deleteTopic, setTopicToDelete] = useState([]);
-
+  const [prevTopics, setPrevTopics] = (0, _react.useState)([]);
   (0, _react.useEffect)(() => {
     const prevTopicsData = topics.filter(topic => topic.discussedOn);
     setPrevTopics(prevTopicsData);
@@ -30074,15 +30052,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = AddTopics;
 
-var _react = _interopRequireWildcard(require("react"));
+var _react = _interopRequireDefault(require("react"));
 
 var _Form = _interopRequireDefault(require("./Form"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function AddTopics({
   topics,
@@ -30093,6 +30067,7 @@ function AddTopics({
     let newTopic = createNewTopic(e.currentTarget.topic.value);
     topics.push(newTopic);
     setTopics([...topics]);
+    e.currentTarget.topic.value = "";
   };
 
   const createNewTopic = title => {
@@ -30201,7 +30176,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65355" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56601" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

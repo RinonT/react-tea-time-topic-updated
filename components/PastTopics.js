@@ -3,8 +3,7 @@ import PastTopicsComponent from './PastTopicsComponent';
 
 export default function ShowPastTopics({topics}) {
     const [prevTopics, setPrevTopics] = useState([]);
-    // const [deleteTopic, setTopicToDelete] = useState([]);
-
+    
     useEffect(() => {
         const prevTopicsData = topics.filter(topic => topic.discussedOn);
         setPrevTopics(prevTopicsData) 

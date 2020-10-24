@@ -73,6 +73,7 @@ small,
 article {
   background: white;
   padding: 1.5rem 2rem;
+  margin-bottom: 16px;
   border-radius: 5px;
   display: grid;
   justify-items: center;
@@ -119,6 +120,10 @@ form button {
 }
 .archive svg {
   color: #d8779a;
+}
+
+svg {
+  width: 32px;
 }
 
 .delete {
