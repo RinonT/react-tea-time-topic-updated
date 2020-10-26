@@ -29896,16 +29896,19 @@ function showNextTopics({
     nextTopicsData.map(topic => topic.totalVotes = topic.upvotes - topic.downvotes);
     setNextTopics(nextTopicsData);
   }, [topics]);
+  (0, _react.useEffect)(() => {
+    setSortedTopics(nextTopics.sort((topicA, topicB) => topicB.totalVotes - topicA.totalVotes));
+  }, [nextTopics]);
 
   const upvoteOneTopic = e => {
     const id = e.currentTarget.id;
-    const topicToUpvote = topics.find(topic => topic.id === id || topic.id == id);
+    const topicToUpvote = sortedTopics.find(topic => topic.id === id || topic.id == id);
     setUpvoteTopic(topicToUpvote.upvotes++);
   };
 
   const downvoteOneTopic = e => {
     const id = e.currentTarget.id;
-    const topicToDownvote = topics.find(topic => topic.id === id || topic.id == id);
+    const topicToDownvote = sortedTopics.find(topic => topic.id === id || topic.id == id);
     setDownvoteTopic(topicToDownvote.downvotes++);
   };
 
@@ -29914,12 +29917,8 @@ function showNextTopics({
     topicToArchive.discussedOn = Date.now(); // add a timestamp to the attribute
 
     setTopics([...topics]);
-  }; // Sort the topics by its totalVotes
+  };
 
-
-  (0, _react.useEffect)(() => {
-    setSortedTopics(nextTopics.sort((topicA, topicB) => topicB.totalVotes - topicA.totalVotes));
-  }, [nextTopics]);
   return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, sortedTopics.map(topic => {
     return /*#__PURE__*/_react.default.createElement(_NextTopicsComponent.default, _extends({
       key: topic.id
