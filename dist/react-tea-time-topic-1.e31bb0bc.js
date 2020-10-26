@@ -29828,10 +29828,10 @@ function TopicsComponent({
   }, title), /*#__PURE__*/_react.default.createElement("div", {
     className: "votes"
   }, /*#__PURE__*/_react.default.createElement("button", {
-    className: "upvote"
-  }, /*#__PURE__*/_react.default.createElement("svg", {
+    className: "upvote",
     id: id,
-    onClick: upvoteTopic,
+    onClick: upvoteTopic
+  }, /*#__PURE__*/_react.default.createElement("svg", {
     className: "w-6 h-6",
     fill: "none",
     stroke: "currentColor",
@@ -29845,10 +29845,10 @@ function TopicsComponent({
   }))), /*#__PURE__*/_react.default.createElement("span", {
     className: "upvote-number"
   }, upvotes), /*#__PURE__*/_react.default.createElement("button", {
-    className: "downvote"
-  }, /*#__PURE__*/_react.default.createElement("svg", {
+    className: "downvote",
     id: id,
-    onClick: downvoteTopic,
+    onClick: downvoteTopic
+  }, /*#__PURE__*/_react.default.createElement("svg", {
     className: "w-6 h-6",
     fill: "none",
     stroke: "currentColor",
@@ -29889,9 +29889,8 @@ function showNextTopics({
 }) {
   const [nextTopics, setNextTopics] = (0, _react.useState)([]);
   const [sortedTopics, setSortedTopics] = (0, _react.useState)([]);
-  const [upvoteTopic, setUpvoteTopic] = (0, _react.useState)(0);
-  const [downvoteTopic, setDownvoteTopic] = (0, _react.useState)(0);
-  const [archiveTopic, setArchiveTopic] = (0, _react.useState)([]);
+  const [, setUpvoteTopic] = (0, _react.useState)(0);
+  const [, setDownvoteTopic] = (0, _react.useState)(0);
   (0, _react.useEffect)(() => {
     const nextTopicsData = topics.filter(topic => !topic.discussedOn);
     nextTopicsData.map(topic => topic.totalVotes = topic.upvotes - topic.downvotes);
@@ -29900,22 +29899,20 @@ function showNextTopics({
 
   const upvoteOneTopic = e => {
     const id = e.currentTarget.id;
-    const topicToUpvote = topics.find(topic => topic.id == id);
+    const topicToUpvote = topics.find(topic => topic.id === id || topic.id == id);
     setUpvoteTopic(topicToUpvote.upvotes++);
   };
 
   const downvoteOneTopic = e => {
     const id = e.currentTarget.id;
-    const topicToDownvote = topics.find(topic => topic.id == id);
+    const topicToDownvote = topics.find(topic => topic.id === id || topic.id == id);
     setDownvoteTopic(topicToDownvote.downvotes++);
   };
 
-  const archiveOneTopic = e => {
-    const id = e.currentTarget.id;
+  const archiveOneTopic = id => {
     const topicToArchive = topics.find(topic => topic.id === id || topic.id == id);
     topicToArchive.discussedOn = Date.now(); // add a timestamp to the attribute
 
-    topics.push(topicToArchive);
     setTopics([...topics]);
   }; // Sort the topics by its totalVotes
 
@@ -29930,7 +29927,7 @@ function showNextTopics({
       setTopics: setTopics,
       upvoteTopic: upvoteOneTopic,
       downvoteTopic: downvoteOneTopic,
-      archiveTopic: archiveOneTopic
+      archiveTopic: () => archiveOneTopic(topic.id)
     }));
   }));
 }
@@ -29958,7 +29955,6 @@ function PastTopicsComponent({
     id: id,
     onClick: topicToDelete
   }, /*#__PURE__*/_react.default.createElement("svg", {
-    id: id,
     className: "w-6 h-6",
     fill: "none",
     stroke: "currentColor",
@@ -30003,7 +29999,7 @@ function ShowPastTopics({
   }, [topics]);
 
   const deleteOneTopic = e => {
-    const id = e.target.id;
+    const id = e.currentTarget.id;
     const topicsToKeep = prevTopics.filter(topic => topic.id !== id);
     setPrevTopics(topicsToKeep);
   };
@@ -30064,7 +30060,8 @@ function AddTopics({
 }) {
   const handleSubmit = e => {
     e.preventDefault();
-    let newTopic = createNewTopic(e.currentTarget.topic.value);
+    let newTopicValue = e.currentTarget.topic.value;
+    let newTopic = createNewTopic(newTopicValue);
     topics.push(newTopic);
     setTopics([...topics]);
     e.currentTarget.topic.value = "";
@@ -30176,7 +30173,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56601" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50067" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

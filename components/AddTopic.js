@@ -4,10 +4,11 @@ import Form from './Form'
 export default function AddTopics({topics, setTopics}) { 
     const handleSubmit = e => {
         e.preventDefault();
-        let newTopic = createNewTopic(e.currentTarget.topic.value);
+        let newTopicValue = e.currentTarget.topic.value;
+        let newTopic = createNewTopic(newTopicValue);
         topics.push(newTopic);
         setTopics([...topics]) 
-        e.currentTarget.topic.value="";
+        e.currentTarget.topic.value= "";
     };
 
     const createNewTopic = title => {
