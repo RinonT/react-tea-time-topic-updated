@@ -29904,12 +29904,14 @@ function showNextTopics({
     const id = e.currentTarget.id;
     const topicToUpvote = sortedTopics.find(topic => topic.id === id || topic.id == id);
     setUpvoteTopic(topicToUpvote.upvotes++);
+    setTopics([...topics]);
   };
 
   const downvoteOneTopic = e => {
     const id = e.currentTarget.id;
     const topicToDownvote = sortedTopics.find(topic => topic.id === id || topic.id == id);
     setDownvoteTopic(topicToDownvote.downvotes++);
+    setTopics([...topics]);
   };
 
   const archiveOneTopic = id => {
@@ -30172,7 +30174,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50067" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49984" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -21,12 +21,14 @@ export default function showNextTopics({ setTopics, topics }) {
         const id = e.currentTarget.id;
         const topicToUpvote = sortedTopics.find(topic => topic.id === id || topic.id == id);
         setUpvoteTopic(topicToUpvote.upvotes++);
+        setTopics([...topics])
     };
 
     const downvoteOneTopic = (e) => {
         const id = e.currentTarget.id;
         const topicToDownvote = sortedTopics.find(topic => topic.id === id || topic.id == id);
         setDownvoteTopic(topicToDownvote.downvotes++);
+        setTopics([...topics])
     };
 
     const archiveOneTopic = (id) => {
