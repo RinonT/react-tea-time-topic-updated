@@ -11,7 +11,7 @@ export default function ShowPastTopics({topics}) {
  
     const deleteOneTopic = (e) => {
         const id = e.currentTarget.id;
-        const topicsToKeep = prevTopics.filter(topic => topic.id !== id);
+        const topicsToKeep = prevTopics.filter(topic => topic.id != id);
         setPrevTopics(topicsToKeep);
     }
 

@@ -4,8 +4,6 @@ import NextTopics from './NextTopicsComponent';
 export default function showNextTopics({ setTopics, topics }) {
     const [nextTopics, setNextTopics] = useState([]);
     const [sortedTopics, setSortedTopics] = useState([]);
-    const [, setUpvoteTopic] = useState(0);
-    const [, setDownvoteTopic] = useState(0);
  
     useEffect(() => {
         const nextTopicsData = topics.filter(topic => !topic.discussedOn);
@@ -18,23 +16,44 @@ export default function showNextTopics({ setTopics, topics }) {
     }, [nextTopics])
 
     const upvoteOneTopic = (e) => {
-        const id = e.currentTarget.id;
-        const topicToUpvote = sortedTopics.find(topic => topic.id === id || topic.id == id);
-        setUpvoteTopic(topicToUpvote.upvotes++);
-        setTopics([...topics])
+        const id = e.currentTarget.id; 
+        const newTopicList = topics.map(topic => {
+			if (topic.id === id) {
+				return {
+					...topic,
+					upvotes: topic.upvotes + 1,
+				};
+			}
+			return topic;
+		});
+		setTopics(newTopicList);
     };
 
     const downvoteOneTopic = (e) => {
-        const id = e.currentTarget.id;
-        const topicToDownvote = sortedTopics.find(topic => topic.id === id || topic.id == id);
-        setDownvoteTopic(topicToDownvote.downvotes++);
-        setTopics([...topics])
+        const id = e.currentTarget.id; 
+        const newTopicList = topics.map(topic => {
+			if (topic.id === id) {
+				return {
+					...topic,
+					downvotes: topic.downvotes + 1,
+				};
+			}
+			return topic;
+		});
+		setTopics(newTopicList);
     };
 
-    const archiveOneTopic = (id) => {
-        const topicToArchive = topics.find(topic => topic.id === id || topic.id == id);
-        topicToArchive.discussedOn = Date.now(); // add a timestamp to the attribute
-        setTopics([...topics])
+    const archiveOneTopic = (id) => { 
+        const newTopicList = topics.map(topic => {
+			if (topic.id === id) {
+				return {
+					...topic,
+					discussedOn: Date.now(),
+				};
+			}
+			return topic;
+		});
+		setTopics(newTopicList);
     };
 
 

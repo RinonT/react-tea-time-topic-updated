@@ -29889,8 +29889,6 @@ function showNextTopics({
 }) {
   const [nextTopics, setNextTopics] = (0, _react.useState)([]);
   const [sortedTopics, setSortedTopics] = (0, _react.useState)([]);
-  const [, setUpvoteTopic] = (0, _react.useState)(0);
-  const [, setDownvoteTopic] = (0, _react.useState)(0);
   (0, _react.useEffect)(() => {
     const nextTopicsData = topics.filter(topic => !topic.discussedOn);
     nextTopicsData.map(topic => topic.totalVotes = topic.upvotes - topic.downvotes);
@@ -29902,23 +29900,43 @@ function showNextTopics({
 
   const upvoteOneTopic = e => {
     const id = e.currentTarget.id;
-    const topicToUpvote = sortedTopics.find(topic => topic.id === id || topic.id == id);
-    setUpvoteTopic(topicToUpvote.upvotes++);
-    setTopics([...topics]);
+    const newTopicList = topics.map(topic => {
+      if (topic.id === id) {
+        return { ...topic,
+          upvotes: topic.upvotes + 1
+        };
+      }
+
+      return topic;
+    });
+    setTopics(newTopicList);
   };
 
   const downvoteOneTopic = e => {
     const id = e.currentTarget.id;
-    const topicToDownvote = sortedTopics.find(topic => topic.id === id || topic.id == id);
-    setDownvoteTopic(topicToDownvote.downvotes++);
-    setTopics([...topics]);
+    const newTopicList = topics.map(topic => {
+      if (topic.id === id) {
+        return { ...topic,
+          downvotes: topic.downvotes + 1
+        };
+      }
+
+      return topic;
+    });
+    setTopics(newTopicList);
   };
 
   const archiveOneTopic = id => {
-    const topicToArchive = topics.find(topic => topic.id === id || topic.id == id);
-    topicToArchive.discussedOn = Date.now(); // add a timestamp to the attribute
+    const newTopicList = topics.map(topic => {
+      if (topic.id === id) {
+        return { ...topic,
+          discussedOn: Date.now()
+        };
+      }
 
-    setTopics([...topics]);
+      return topic;
+    });
+    setTopics(newTopicList);
   };
 
   return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, sortedTopics.map(topic => {
@@ -30001,7 +30019,7 @@ function ShowPastTopics({
 
   const deleteOneTopic = e => {
     const id = e.currentTarget.id;
-    const topicsToKeep = prevTopics.filter(topic => topic.id !== id);
+    const topicsToKeep = prevTopics.filter(topic => topic.id != id);
     setPrevTopics(topicsToKeep);
   };
 
@@ -30174,7 +30192,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49984" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50251" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
